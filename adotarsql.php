@@ -11,7 +11,7 @@ if (!$conn) {
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // --- Captura os dados enviados pelo formulário ---
-    $nome_id = $_POST['nome_id'] ?? '';
+    $nome = $_POST['nome'] ?? '';
     $cachorro_id = isset($_POST['cachorro_id']) ? (int) $_POST['cachorro_id'] : 0;
     session_start();
 $usuario_id = $_SESSION['id'] ?? 0;
@@ -19,14 +19,14 @@ $usuario_id = $_SESSION['id'] ?? 0;
     $status = $_POST['status'] ?? '';
     $observacoes = $_POST['observacoes'] ?? '';
     $numero_id = $_POST['numero_id'] ?? '';
-
+    
 
 
     // --- DEBUG: Mostra os dados recebidos ---
 
     // --- Prepara o INSERT ---
     $sql = "INSERT INTO adocoes
-            (nome_id, cachorro_id, usuario_id, data_adocao, status, observacoes, numero_id)
+            (nome, cachorro_id, usuario_id, data_adocao, status, observacoes, numero_id)
             VALUES (?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
@@ -37,7 +37,7 @@ $usuario_id = $_SESSION['id'] ?? 0;
 
 $stmt->bind_param(
     "siissss",
-    $nome_id,
+    $nome,
     $cachorro_id,
     $usuario_id,
     $data_adocao,
